@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebApplication1.Models.TokenInfo>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="jumbotron">
+    <h1>Token Price Tracker</h1>
+    <p class="lead">Enter your BSC wallet address.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4" style="width:100%;">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            <div class="col-lg-12 row">
+                <input type="text" id="walletAddress" name="walletAddress" style="max-width:1200px;width: 1000px;"/>
+                <button type="submit" class="btn btn-info">Search</button>
+            </div>
+        }
+    </div>
+    <br /><br /><br />
+    <div class="col-md-4" style="width:100%;">
+        @if (Model != null && Model.Count() != 0)
+        {
+            <table style="table-layout: fixed;width: 100%;">
+                <thead>
+                    <tr>
+                        <th>
+                            Token Name
+                        </th>
+                        <th>
+                            Token Symbol
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Token Value (in USDT)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var t in Model)
+                    {
+                    <tr>
+                        <td style="width: 442px">
+                            <a href="https://bscscan.com/address/@t.Contract" target="_blank">@Html.DisplayFor(modelItem => t.Name)</a>
+                        </td>
+                        <td class="modal-sm" style="width: 354px">
+                            @Html.DisplayFor(modelItem => t.Symbol)
+                        </td>
+                        <td class="modal-sm" style="width: 354px">
+                            @Html.DisplayFor(modelItem => t.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => t.Value)
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
